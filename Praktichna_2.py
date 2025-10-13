@@ -81,6 +81,7 @@ for cnt in contours:
 
 
 # cv2.imshow("mask", img)
+cv2.imwrite("Praktichna_2", img_copy)
 cv2.imshow("mask", img_copy)
 cv2.waitKey(0)
 cv2.destroyAllWindows()
