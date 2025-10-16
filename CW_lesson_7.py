@@ -27,7 +27,7 @@ while True:
     for cnt in contours:
         area = cv2.contourArea(cnt)
         if area > 1000:
-            cv2.drawContours(frame, [cnt], -1, (0, 255, 0), 2)
+            cv2.drawContours(frame, [cnt], -1, (0, 255, 0), 2)  # FIXED
 
             M = cv2.moments(cnt)
             if M["m00"] != 0:
@@ -36,15 +36,11 @@ while True:
 
                 cv2.circle(frame, (cX, cY), 7, (0, 255, 0), 2)
                 points.append((cX, cY))
-                object_detected = True
 
-                if object_detected:
-                    color = (0, 255, 0)
-                else:
-                    color = (0, 0, 255)
-
-                cv2.rectangle(frame, (0, 0), (frame.shape[1] - 1, frame.shape[0] - 1), color, 8)
-
+    for i in range(1, len(points)):
+        if points[i - 1] is None or points[i] is None:
+            continue
+        cv2.line(frame, points[i - 1], points[i], (255, 0, 0), 2)
 
     cv2.imshow('video', frame)
     cv2.imshow('VIDEO', mask)
@@ -54,4 +50,3 @@ while True:
 
 cap.release()
 cv2.destroyAllWindows()
-
